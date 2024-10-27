@@ -1,4 +1,4 @@
-# Hotel Booking System
+# Creational Design Patterns
 
 ## Author: Nedealcova Irina
 
