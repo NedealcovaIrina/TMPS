@@ -2,19 +2,17 @@
 //In this case, the factory creates two types of objects: Room and Booking
 
 const Room = require('../models/RoomPrototype');
+const RoomPriceAdapter = require('../adapters/RoomPriceAdapter'); // Подключение адаптера
 const Booking = require('../models/Booking');
 
 class HotelFactory {
     createRoom(type) {
-        switch (type) {
-            case 'Standard':
-                return new Room('Standard', 100);
-            case 'Presidential Suite':
-                return new Room('Presidential Suite', 250);
-            case 'Economy':
-                return new Room('Economy', 50);
-            default:
-                throw new Error('No room type selected');
+        const priceAdapter = new RoomPriceAdapter(type); // Используем адаптер для получения цены
+        const price = priceAdapter.getPrice();
+        if (price !== null) {
+            return new Room(type, price);
+        } else {
+            throw new Error('Room type not supported');
         }
     }
 
@@ -24,3 +22,4 @@ class HotelFactory {
 }
 
 module.exports = HotelFactory;
+
