@@ -19,11 +19,13 @@ class HotelProxy {
     bookRoom(roomType) {
         const room = this.hotel.getAvailableRooms().find(r => r.type === roomType);
         if (!room) {
-            console.log('No available rooms of this type.');
+            console.log(`No available rooms of type(data from Proxi) '${roomType}'.`);
             return null;
         }
+        console.log(`Booking room of type (data from Proxi) '${roomType}'.`);
         return room;
     }
+
 }
 
 module.exports = HotelProxy;

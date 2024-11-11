@@ -14,8 +14,9 @@ class RoomPriceAdapter {
     }
 
     getPrice() {
-        return this.externalService.getRoomPrice(this.roomType);
+        const price = this.externalService.getRoomPrice(this.roomType);
+        console.log(`Using Adapter to fetch price for room type '${this.roomType}': $${price}`);
+        return price;
     }
 }
-
-module.exports = RoomPriceAdapter;
+    module.exports = RoomPriceAdapter;
