@@ -22,4 +22,3 @@ class HotelFactory {
 }
 
 module.exports = HotelFactory;
-

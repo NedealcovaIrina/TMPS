@@ -19,4 +19,4 @@ class RoomPriceAdapter {
         return price;
     }
 }
-    module.exports = RoomPriceAdapter;
+module.exports = RoomPriceAdapter;

@@ -1,15 +1,14 @@
-// main.js
-const BookingSystemConfig = require('../domain/singleton/BookingSystemConfig');
+// client/main.js
 const BookingFacade = require('../domain/facades/BookingFacade');
-
-// Initialize the Singleton configuration
-const config = new BookingSystemConfig();
-console.log('System Configuration:', config.getConfig());
 
 // Initialize the booking system facade
 const bookingSystem = new BookingFacade();
 
-// Adding rooms to the hotel through the facade
+// Register customers and add them as observers
+const customer1 = bookingSystem.registerCustomer('Irina Nedealcova');
+const customer2 = bookingSystem.registerCustomer('Ivan Sidorov');
+
+// Add rooms to the hotel
 bookingSystem.addRoom('Standard');
 bookingSystem.addRoom('Presidential Suite');
 
@@ -19,24 +18,9 @@ bookingSystem.getAvailableRooms().forEach((room) => {
     console.log(`Room: ${room.getDetails()}`);
 });
 
-// Registering customers and booking rooms
-const customer1 = bookingSystem.registerCustomer('Irina Nedealcova');
-const booking1 = bookingSystem.bookRoom(customer1, 'Standard', '21.10.2024', '26.10.2024');
-console.log(`\nBooking details for customer 1:
-Customer: ${booking1.customer.name}
-Room: ${booking1.room.getDetails()}
-Check-in Date: ${booking1.checkInDate}
-Check-out Date: ${booking1.checkOutDate}`);
+// Book rooms for customers and notify them
+const room1 = bookingSystem.getAvailableRooms()[0]; // Standard room
+bookingSystem.bookRoom(customer1, 'Standard', '21.10.2024', '26.10.2024');
 
-const customer2 = bookingSystem.registerCustomer('Ivan Sidorov');
-const booking2 = bookingSystem.bookRoom(customer2, 'Presidential Suite', '24.10.2024', '30.10.2024');
-console.log(`\nBooking details for customer 2:
-Customer: ${booking2.customer.name}
-Room: ${booking2.room.getDetails()}
-Check-in Date: ${booking2.checkInDate}
-Check-out Date: ${booking2.checkOutDate}`);
-
-// Demonstrating the Prototype pattern by cloning a room
-const clonedRoom = bookingSystem.getAvailableRooms()[0].clone();
-console.log('\nCloned Room Details:');
-console.log(clonedRoom.getDetails());
+const room2 = bookingSystem.getAvailableRooms()[1]; // Presidential Suite
+bookingSystem.bookRoom(customer2, 'Presidential Suite', '24.10.2024', '30.10.2024');
